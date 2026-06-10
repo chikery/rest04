@@ -1,11 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import VideoCard from '../components/VideoCard'
-import { videoCategories, videoData, featuredVideos, notices } from '../data/site'
+import { serviceCategories, notices } from '../data/site'
 
-// ============================================================
-// Hero
-// ============================================================
 const heroSlides = [
   {
     headline: '아이디어에서\n사업계획서까지,\nAI가 함께합니다.',
@@ -16,9 +12,19 @@ const heroSlides = [
   {
     headline: '7단계로\n완성하는\n사업계획서.',
     sub: '문제 발견부터 피치덱 완성까지 — AI가 초안을 자동 생성합니다',
-    cta: { label: '7단계 로드맵 보기', to: '/videos/roadmap' },
+    cta: { label: '7단계 로드맵 보기', to: '/services/coaching' },
     gradient: 'from-midnight via-[#0f2a5f] to-[#1a56db]',
   },
+]
+
+const roadmapSteps = [
+  { step: 1, title: '문제 발견과 솔루션', desc: 'TPCS 프레임워크' },
+  { step: 2, title: '고객과 시장 리서치', desc: '잠재고객 프로파일' },
+  { step: 3, title: '고객 인터뷰 설계', desc: '가설 9개 + 질문지' },
+  { step: 4, title: 'MVP 테스트 설계', desc: '가설 검증 도구' },
+  { step: 5, title: '시장·경쟁사 분석', desc: 'TAM·SAM·SOM + SWOT' },
+  { step: 6, title: '비즈니스 모델 설계', desc: 'BMC 9블록 + AI 피드백' },
+  { step: 7, title: '피치덱 완성', desc: '10섹션 + Q&A 8문항' },
 ]
 
 function Hero() {
@@ -42,14 +48,12 @@ function Hero() {
             i === idx ? 'opacity-100' : 'pointer-events-none opacity-0',
           ].join(' ')}
         >
-          {/* 배경 장식 */}
           <div className="absolute right-0 top-0 h-full w-1/2 opacity-10">
             <div className="absolute right-[-10%] top-[10%] h-96 w-96 rounded-full bg-azure blur-3xl" />
             <div className="absolute right-[20%] bottom-[20%] h-64 w-64 rounded-full bg-royal blur-2xl" />
           </div>
           <div className="absolute bottom-0 left-0 h-48 w-48 rounded-full bg-gold/10 blur-2xl" />
 
-          {/* 콘텐츠 */}
           <div className="relative mx-auto w-full max-w-container px-4 md:px-10 lg:px-20">
             <p className="mb-4 text-sm font-semibold tracking-[0.2em] text-azure/80 md:text-base">
               RoadmapAI · AI 창업 코칭
@@ -76,7 +80,6 @@ function Hero() {
         </div>
       ))}
 
-      {/* 화살표 네비 */}
       <button
         type="button"
         aria-label="이전"
@@ -94,7 +97,6 @@ function Hero() {
         ›
       </button>
 
-      {/* 인디케이터 */}
       <div className="absolute bottom-12 left-1/2 z-10 flex -translate-x-1/2 gap-2">
         {heroSlides.map((_, i) => (
           <button
@@ -110,7 +112,6 @@ function Hero() {
         ))}
       </div>
 
-      {/* 아래 방향 스크롤 힌트 */}
       <div className="absolute bottom-10 right-[4%] z-10 hidden flex-col items-center gap-2 md:flex">
         <span className="text-xs font-medium tracking-widest text-white/50">SCROLL</span>
         <div className="h-10 w-px animate-bounce bg-gradient-to-b from-white/50 to-transparent" />
@@ -119,10 +120,7 @@ function Hero() {
   )
 }
 
-// ============================================================
-// 카테고리 섹션
-// ============================================================
-function Categories() {
+function Services() {
   const colorMap = {
     royal: 'from-royal to-navy',
     navy: 'from-navy to-midnight',
@@ -139,19 +137,19 @@ function Categories() {
               SERVICES
             </p>
             <h2 className="text-4xl font-extrabold leading-tight text-midnight dark:text-white md:text-5xl">
-              주제별 콘텐츠 탐색
+              창업의 모든 단계를 AI와 함께
             </h2>
           </div>
           <Link
-            to="/videos/coaching"
+            to="/services/coaching"
             className="inline-flex items-center gap-2 rounded-full border border-neutral-300 px-6 py-3 text-sm font-semibold text-neutral-600 transition hover:border-royal hover:text-royal dark:border-navy dark:text-neutral-400 dark:hover:border-azure dark:hover:text-azure"
           >
-            전체 콘텐츠 보기 →
+            전체 서비스 보기 →
           </Link>
         </div>
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {videoCategories.map((cat) => (
+          {serviceCategories.map((cat) => (
             <Link
               key={cat.key}
               to={cat.to}
@@ -167,7 +165,7 @@ function Categories() {
               <h3 className="mb-2 text-xl font-bold text-white">{cat.label}</h3>
               <p className="text-sm leading-relaxed text-white/70">{cat.desc}</p>
               <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-white/80 transition group-hover:gap-3">
-                콘텐츠 보기 <span>→</span>
+                자세히 보기 <span>→</span>
               </div>
             </Link>
           ))}
@@ -177,24 +175,54 @@ function Categories() {
   )
 }
 
-// ============================================================
-// 추천 영상 섹션
-// ============================================================
-function FeaturedVideos() {
+function Roadmap() {
   return (
     <section className="bg-slate-50 py-24 dark:bg-navy/20 md:py-32">
       <div className="mx-auto max-w-container px-4 md:px-10 lg:px-20">
-        <div className="mb-12">
-          <p className="mb-2 text-sm font-semibold tracking-widest text-royal dark:text-azure">
-            FEATURED
-          </p>
-          <h2 className="text-4xl font-extrabold text-midnight dark:text-white md:text-5xl">
-            추천 콘텐츠
-          </h2>
+        <div className="mb-12 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
+          <div>
+            <p className="mb-2 text-sm font-semibold tracking-widest text-royal dark:text-azure">
+              HOW IT WORKS
+            </p>
+            <h2 className="text-4xl font-extrabold text-midnight dark:text-white md:text-5xl">
+              7단계 창업 로드맵
+            </h2>
+          </div>
+          <Link
+            to="/services/coaching"
+            className="inline-flex items-center gap-2 rounded-full border border-neutral-300 px-6 py-3 text-sm font-semibold text-neutral-600 transition hover:border-royal hover:text-royal dark:border-navy dark:text-neutral-400 dark:hover:border-azure dark:hover:text-azure"
+          >
+            상세 보기 →
+          </Link>
         </div>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {featuredVideos.map((v) => (
-            <VideoCard key={v.videoId} video={v} />
+
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-7">
+          {roadmapSteps.map((s, i) => (
+            <div
+              key={s.step}
+              className={[
+                'relative rounded-2xl p-5 transition',
+                i === 6
+                  ? 'border-2 border-royal bg-royal/5 dark:bg-royal/10'
+                  : 'border border-neutral-100 bg-white hover:shadow-sm dark:border-navy dark:bg-navy/30',
+              ].join(' ')}
+            >
+              <span
+                className={[
+                  'mb-3 flex h-8 w-8 items-center justify-center rounded-lg text-sm font-bold',
+                  i === 6 ? 'bg-royal text-white' : 'bg-royal/10 text-royal dark:bg-azure/10 dark:text-azure',
+                ].join(' ')}
+              >
+                {s.step}
+              </span>
+              <p className="mb-1 text-sm font-bold leading-tight text-midnight dark:text-white">{s.title}</p>
+              <p className="text-xs text-neutral-400 dark:text-neutral-500">{s.desc}</p>
+              {i === 6 && (
+                <span className="mt-2 inline-block rounded-full bg-royal/15 px-2 py-0.5 text-xs font-semibold text-royal dark:text-azure">
+                  최종 완성
+                </span>
+              )}
+            </div>
           ))}
         </div>
       </div>
@@ -202,9 +230,6 @@ function FeaturedVideos() {
   )
 }
 
-// ============================================================
-// 소개 밴드
-// ============================================================
 function AboutBand() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-midnight via-navy to-royal py-24 md:py-32">
@@ -236,9 +261,6 @@ function AboutBand() {
   )
 }
 
-// ============================================================
-// 공지사항
-// ============================================================
 function Notices() {
   return (
     <section className="bg-white py-24 dark:bg-slate-950 md:py-32">
@@ -296,8 +318,8 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Categories />
-      <FeaturedVideos />
+      <Services />
+      <Roadmap />
       <AboutBand />
       <Notices />
     </>

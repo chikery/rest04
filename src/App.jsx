@@ -5,7 +5,7 @@ import ScrollToTop from './components/ScrollToTop'
 import ScrollToTopButton from './components/ScrollToTopButton'
 
 import Home from './pages/Home'
-import Videos from './pages/Videos'
+import Services from './pages/Services'
 import About from './pages/About'
 import Community from './pages/Community'
 import SimplePage from './pages/SimplePage'
@@ -19,11 +19,11 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
 
-          {/* AI 동영상 */}
-          <Route path="/videos" element={<Navigate to="/videos/ai-basics" replace />} />
-          <Route path="/videos/:category" element={<Videos />} />
+          {/* 서비스 */}
+          <Route path="/services" element={<Navigate to="/services/coaching" replace />} />
+          <Route path="/services/:tab" element={<Services />} />
 
-          {/* 교육 소개 */}
+          {/* 회사 소개 */}
           <Route path="/about" element={<Navigate to="/about/intro" replace />} />
           <Route path="/about/:tab" element={<About />} />
 
