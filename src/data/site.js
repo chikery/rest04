@@ -46,6 +46,7 @@ export const nav = [
     to: '/community/notices',
     children: [
       { label: '공지사항', to: '/community/notices' },
+      { label: '자유게시판', to: '/board' },
       { label: '자주 묻는 질문', to: '/community/faq' },
     ],
   },

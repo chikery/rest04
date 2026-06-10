@@ -8,6 +8,12 @@ import Home from './pages/Home'
 import Services from './pages/Services'
 import About from './pages/About'
 import Community from './pages/Community'
+import Board from './pages/Board'
+import BoardWrite from './pages/BoardWrite'
+import BoardDetail from './pages/BoardDetail'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
+import Callback from './pages/auth/Callback'
 import SimplePage from './pages/SimplePage'
 
 export default function App() {
@@ -31,7 +37,17 @@ export default function App() {
           <Route path="/community" element={<Navigate to="/community/notices" replace />} />
           <Route path="/community/:tab" element={<Community />} />
 
-          {/* 정책 페이지 */}
+          {/* 게시판 */}
+          <Route path="/board" element={<Board />} />
+          <Route path="/board/write" element={<BoardWrite />} />
+          <Route path="/board/:id" element={<BoardDetail />} />
+
+          {/* 인증 */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/auth/callback" element={<Callback />} />
+
+          {/* 정책 */}
           <Route path="/privacy" element={<SimplePage title="개인정보처리방침" />} />
           <Route path="/terms" element={<SimplePage title="이용약관" />} />
           <Route path="/legal" element={<SimplePage title="법적고지" />} />
