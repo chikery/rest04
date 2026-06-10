@@ -12,7 +12,6 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full">
       <nav
         className="bg-white/95 backdrop-blur-md dark:bg-midnight/95"
-        onMouseLeave={() => setHovered(null)}
       >
         <div className="mx-auto flex h-20 max-w-container items-center justify-between border-b border-neutral-200 px-4 dark:border-navy md:px-10 lg:px-20">
           {/* 로고 */}
@@ -30,8 +29,9 @@ export default function Header() {
             {nav.map((item) => (
               <li
                 key={item.label}
-                className="group flex items-center"
+                className="relative flex items-center"
                 onMouseEnter={() => setHovered(item.label)}
+                onMouseLeave={() => setHovered(null)}
               >
                 <NavLink
                   to={item.to}
@@ -46,6 +46,22 @@ export default function Header() {
                 >
                   {item.label}
                 </NavLink>
+
+                {/* 드롭다운 */}
+                {hovered === item.label && item.children && (
+                  <ul className="absolute left-0 top-full z-50 min-w-[10rem] overflow-hidden rounded-xl border border-neutral-200 bg-white py-1.5 shadow-lg dark:border-navy dark:bg-midnight">
+                    {item.children.map((c) => (
+                      <li key={c.label + c.to}>
+                        <Link
+                          to={c.to}
+                          className="block px-5 py-2.5 text-sm font-medium text-neutral-600 transition hover:bg-neutral-50 hover:text-royal dark:text-neutral-400 dark:hover:bg-navy/50 dark:hover:text-azure"
+                        >
+                          {c.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
           </ul>
@@ -66,35 +82,6 @@ export default function Header() {
           </div>
         </div>
 
-        {/* 데스크탑 메가 서브메뉴 */}
-        <div
-          className={[
-            'hidden overflow-hidden border-b bg-white transition-all duration-200 dark:border-navy dark:bg-midnight lg:block',
-            hovered ? 'max-h-60 border-neutral-200 opacity-100' : 'max-h-0 border-b-0 opacity-0',
-          ].join(' ')}
-        >
-          <div className="mx-auto flex max-w-container justify-end px-20">
-            {nav.map((item) => (
-              <ul
-                key={item.label}
-                className="flex w-44 flex-col gap-3 py-6"
-                onMouseEnter={() => setHovered(item.label)}
-              >
-                {hovered === item.label &&
-                  item.children.map((c) => (
-                    <li key={c.label + c.to}>
-                      <Link
-                        to={c.to}
-                        className="block text-center text-sm text-neutral-600 transition hover:font-semibold hover:text-royal dark:text-neutral-400 dark:hover:text-azure"
-                      >
-                        {c.label}
-                      </Link>
-                    </li>
-                  ))}
-              </ul>
-            ))}
-          </div>
-        </div>
       </nav>
 
       {/* 모바일 패널 */}
