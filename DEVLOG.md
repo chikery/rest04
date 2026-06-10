@@ -89,3 +89,18 @@
 - [ ] 댓글 기능
 - [ ] FAQ / 공지사항 실제 데이터 연동
 - [ ] 카카오 로그인 사용자 닉네임 자동 설정 (profile_nickname → profiles.nickname)
+
+---
+
+## 2026-06-10 (추가) — 배포 환경변수 이슈 수정 & 메뉴 개편
+
+### 수정 사항
+
+#### 1. GitHub Pages 흰 화면 이슈 해결
+- **원인**: GitHub Actions 빌드 시 `VITE_SUPABASE_URL` 등 환경변수가 주입되지 않아 Supabase 클라이언트 초기화 crash → 흰 화면
+- **해결**: `src/lib/supabase.js`에 환경변수 누락 시 fallback 처리 추가, 앱 crash 방지
+- GitHub Secrets 4개 정상 등록 확인 후 재배포로 최종 해결
+
+#### 2. 상단 네비게이션 메뉴 이름 변경
+- `커뮤니티` → `게시판` 으로 변경 (`src/data/site.js`)
+- 드롭다운 3개 항목 유지: 공지사항(`/community/notices`) / 자유게시판(`/board`) / 자주 묻는 질문(`/community/faq`)
