@@ -8,12 +8,12 @@ const tabs = videoCategories.map((c) => ({ label: c.label, to: c.to }))
 export default function Videos() {
   const { category } = useParams()
   const cat = videoCategories.find((c) => c.key === category)
-  if (!cat) return <Navigate to="/videos/ai-basics" replace />
+  if (!cat) return <Navigate to="/videos/coaching" replace />
 
   const videos = videoData[category] || []
 
   return (
-    <SubPageLayout sectionTitle="AI 동영상" tabs={tabs}>
+    <SubPageLayout sectionTitle="서비스 콘텐츠" tabs={tabs}>
       <div className="mx-auto max-w-container px-4 md:px-10 lg:px-20">
         {/* 카테고리 헤더 */}
         <div className="mb-12">

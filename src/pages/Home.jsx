@@ -8,15 +8,15 @@ import { videoCategories, videoData, featuredVideos, notices } from '../data/sit
 // ============================================================
 const heroSlides = [
   {
-    headline: 'AI 시대,\n당신의 언어로\n이해하세요.',
-    sub: 'AI 기초부터 AI 리터러시까지 — 누구나 쉽게',
-    cta: { label: 'AI 기초 강의 보기', to: '/videos/ai-basics' },
+    headline: '아이디어에서\n사업계획서까지,\nAI가 함께합니다.',
+    sub: '창업 경험이 없어도, AI 코치가 7단계 로드맵으로 안내합니다',
+    cta: { label: '무료 상담 신청', to: '/community/notices' },
     gradient: 'from-midnight via-navy to-royal',
   },
   {
-    headline: '지금 이 순간에도\nAI는 세상을\n바꾸고 있습니다.',
-    sub: '최신 AI 트렌드와 활용법을 가장 빠르게',
-    cta: { label: 'AI 트렌드 보기', to: '/videos/ai-trends' },
+    headline: '7단계로\n완성하는\n사업계획서.',
+    sub: '문제 발견부터 피치덱 완성까지 — AI가 초안을 자동 생성합니다',
+    cta: { label: '7단계 로드맵 보기', to: '/videos/roadmap' },
     gradient: 'from-midnight via-[#0f2a5f] to-[#1a56db]',
   },
 ]
@@ -52,7 +52,7 @@ function Hero() {
           {/* 콘텐츠 */}
           <div className="relative mx-auto w-full max-w-container px-4 md:px-10 lg:px-20">
             <p className="mb-4 text-sm font-semibold tracking-[0.2em] text-azure/80 md:text-base">
-              AI CANVAS · 교육 플랫폼
+              RoadmapAI · AI 창업 코칭
             </p>
             <h1 className="mb-6 whitespace-pre-line text-5xl font-extrabold leading-tight text-white drop-shadow md:text-7xl lg:text-8xl">
               {s.headline}
@@ -69,7 +69,7 @@ function Hero() {
                 to="/about/intro"
                 className="inline-flex items-center gap-3 rounded-full border border-white/30 bg-white/10 px-7 py-4 font-bold text-white backdrop-blur transition hover:bg-white/20"
               >
-                교육 소개
+                서비스 소개
               </Link>
             </div>
           </div>
@@ -136,17 +136,17 @@ function Categories() {
         <div className="mb-12 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
           <div>
             <p className="mb-2 text-sm font-semibold tracking-widest text-royal dark:text-azure">
-              CURRICULUM
+              SERVICES
             </p>
             <h2 className="text-4xl font-extrabold leading-tight text-midnight dark:text-white md:text-5xl">
-              주제별 강의 탐색
+              주제별 콘텐츠 탐색
             </h2>
           </div>
           <Link
-            to="/videos/ai-basics"
+            to="/videos/coaching"
             className="inline-flex items-center gap-2 rounded-full border border-neutral-300 px-6 py-3 text-sm font-semibold text-neutral-600 transition hover:border-royal hover:text-royal dark:border-navy dark:text-neutral-400 dark:hover:border-azure dark:hover:text-azure"
           >
-            전체 강의 보기 →
+            전체 콘텐츠 보기 →
           </Link>
         </div>
 
@@ -167,7 +167,7 @@ function Categories() {
               <h3 className="mb-2 text-xl font-bold text-white">{cat.label}</h3>
               <p className="text-sm leading-relaxed text-white/70">{cat.desc}</p>
               <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-white/80 transition group-hover:gap-3">
-                강의 보기 <span>→</span>
+                콘텐츠 보기 <span>→</span>
               </div>
             </Link>
           ))}
@@ -189,7 +189,7 @@ function FeaturedVideos() {
             FEATURED
           </p>
           <h2 className="text-4xl font-extrabold text-midnight dark:text-white md:text-5xl">
-            추천 영상
+            추천 콘텐츠
           </h2>
         </div>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -216,19 +216,19 @@ function AboutBand() {
         <div className="max-w-2xl">
           <p className="mb-4 text-sm font-semibold tracking-widest text-azure/80">ABOUT US</p>
           <h2 className="mb-6 text-4xl font-extrabold leading-tight text-white md:text-6xl">
-            AI를 배우는 가장
+            창업의 첫 걸음,
             <br />
-            좋은 방법
+            올바른 방향으로
           </h2>
           <p className="mb-10 text-lg leading-relaxed text-white/70">
-            AI CANVAS는 복잡한 AI 개념을 누구나 이해할 수 있도록 명확하고 실용적인
-            콘텐츠로 전달합니다. 현장 전문가와 함께하는 영상 강의로 여러분의 AI 역량을 키워보세요.
+            RoadmapAI는 검증된 린스타트업 방법론과 GPT-4o AI 기술을 결합하여, 예비창업자와 초기 창업자가
+            전문 코치 없이도 아이디어에서 사업계획서까지 완성할 수 있도록 돕습니다.
           </p>
           <Link
             to="/about/intro"
             className="inline-flex items-center gap-3 rounded-full bg-gold px-8 py-4 font-bold text-white shadow-lg shadow-gold/30 transition hover:brightness-110"
           >
-            기관 소개 보기 →
+            회사 소개 보기 →
           </Link>
         </div>
       </div>

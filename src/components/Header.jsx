@@ -17,11 +17,11 @@ export default function Header() {
         <div className="mx-auto flex h-20 max-w-container items-center justify-between border-b border-neutral-200 px-4 dark:border-navy md:px-10 lg:px-20">
           {/* 로고 */}
           <Link to="/" className="flex items-center gap-2">
+            <span className="text-2xl font-extrabold tracking-tight text-midnight dark:text-white">
+              Roadmap
+            </span>
             <span className="text-2xl font-extrabold tracking-tight text-royal dark:text-azure">
               AI
-            </span>
-            <span className="text-2xl font-extrabold tracking-tight text-midnight dark:text-white">
-              CANVAS
             </span>
           </Link>
 
@@ -107,8 +107,8 @@ export default function Header() {
           <div className="absolute right-0 top-0 h-full w-4/5 max-w-sm overflow-y-auto bg-white p-6 shadow-2xl dark:bg-midnight">
             <div className="mb-6 flex items-center justify-between">
               <Link to="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-1.5">
+                <span className="text-xl font-extrabold text-midnight dark:text-white">Roadmap</span>
                 <span className="text-xl font-extrabold text-royal dark:text-azure">AI</span>
-                <span className="text-xl font-extrabold text-midnight dark:text-white">CANVAS</span>
               </Link>
               <div className="flex items-center gap-2">
                 <ThemeToggle />
