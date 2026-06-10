@@ -8,6 +8,58 @@ export function AuthProvider({ children }) {
   const [profile, setProfile] = useState(null)
   const [loading, setLoading] = useState(true)
 
+  // Kakao SDK 초기화
+  useEffect(() => {
+    const jsKey = import.meta.env.VITE_KAKAO_JS_KEY
+    if (!jsKey) { console.warn('[Kakao] VITE_KAKAO_JS_KEY 없음'); return }
+    if (!window.Kakao) { console.warn('[Kakao] SDK 미로드'); return }
+    if (!window.Kakao.isInitialized()) {
+      window.Kakao.init(jsKey)
+      console.log('[Kakao] SDK 초기화 완료')
+    }
+  }, [])
+
+  // Kakao OAuth 콜백 처리 (code → id_token → Supabase 로그인)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const code = params.get('code')
+    if (!code) return
+
+    // URL에서 code 즉시 제거
+    window.history.replaceState({}, '', window.location.pathname + (window.location.hash || ''))
+
+    const redirectUri = window.location.origin + import.meta.env.BASE_URL
+
+    console.log('[Kakao] 코드 감지, 토큰 교환 시작. redirectUri:', redirectUri)
+
+    fetch('https://kauth.kakao.com/oauth/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' },
+      body: new URLSearchParams({
+        grant_type: 'authorization_code',
+        client_id: import.meta.env.VITE_KAKAO_JS_KEY,
+        redirect_uri: redirectUri,
+        code,
+      }),
+    })
+      .then((r) => r.json())
+      .then(async (data) => {
+        console.log('[Kakao] 토큰 응답:', data)
+        if (data.id_token) {
+          const { error } = await supabase.auth.signInWithIdToken({
+            provider: 'kakao',
+            token: data.id_token,
+          })
+          if (error) console.error('[Kakao] Supabase signIn 실패', error)
+          else console.log('[Kakao] 로그인 성공')
+        } else {
+          console.error('[Kakao] id_token 없음 — OpenID Connect 활성화 필요. 응답:', data)
+        }
+      })
+      .catch((err) => console.error('[Kakao] 토큰 교환 실패', err))
+  }, [])
+
+  // 세션 감지
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null)
@@ -43,14 +95,12 @@ export function AuthProvider({ children }) {
     return { error }
   }
 
-  async function signInWithKakao() {
-    // HashRouter는 base URL로 리다이렉트 후 Supabase가 토큰을 자동 처리
-    const redirectTo = window.location.origin + import.meta.env.BASE_URL
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'kakao',
-      options: { redirectTo },
+  function signInWithKakao() {
+    const redirectUri = window.location.origin + import.meta.env.BASE_URL
+    window.Kakao.Auth.authorize({
+      redirectUri,
+      scope: 'openid profile_nickname profile_image',
     })
-    return { error }
   }
 
   async function signOut() {

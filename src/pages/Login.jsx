@@ -24,10 +24,9 @@ export default function Login() {
     navigate(from, { replace: true })
   }
 
-  async function handleKakao() {
+  function handleKakao() {
     setError('')
-    const { error } = await signInWithKakao()
-    if (error) setError(error.message)
+    signInWithKakao()
   }
 
   return (
