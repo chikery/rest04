@@ -42,7 +42,7 @@ export const nav = [
     ],
   },
   {
-    label: '커뮤니티',
+    label: '게시판',
     to: '/community/notices',
     children: [
       { label: '공지사항', to: '/community/notices' },
